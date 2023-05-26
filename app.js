@@ -1,4 +1,3 @@
-var fs = require('fs');
 var express = require("express");
 var bodyParser = require("body-parser");
 var app = express();
@@ -12,17 +11,35 @@ app.get("/", function (req, res) {
     var today = new Date();
     var currentDay = today.getDay();
     var day = "";
+       
+    switch (currentDay) {
+        case 0:
+            day = "Pazar";
+            break;
+        case 1:
+            day = "Pazartesi";
+            break;
+        case 2:
+            day = "Salı";
+            break;
+        case 3:
+            day = "Çarşamba";
+            break;
+        case 4:
+            day = "Perşembe";
+            break;
+        case 5:
+            day = "Cuma";
+            break;
+        case 6:
+            day = "Cumartesi";
+            break;
+        default:
+            break;
+    } 
+        
+        res.render("list", { gunTuru: day });
     
-
-    if (today.getDay() === 6 || today.getDay() === 0) {
-        day = "haftasonu";
-
-    }
-   
-    else {
-        day = "haftaici";
-        res.render("list", {gunTuru: day })
-    };
 
 });
 
