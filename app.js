@@ -4,43 +4,28 @@ var app = express();
 var path = require('path');
 var ejs = require("ejs");
 
-app.set('view engine', 'ejs');
+app.set('view engine', 'ejs', 'js');
 
+app.use(bodyParser.urlencoded({extended: true}));
 
 app.get("/", function (req, res) {
     var today = new Date();
-    var currentDay = today.getDay();
-    var day = "";
-       
-    switch (currentDay) {
-        case 0:
-            day = "Pazar";
-            break;
-        case 1:
-            day = "Pazartesi";
-            break;
-        case 2:
-            day = "Salı";
-            break;
-        case 3:
-            day = "Çarşamba";
-            break;
-        case 4:
-            day = "Perşembe";
-            break;
-        case 5:
-            day = "Cuma";
-            break;
-        case 6:
-            day = "Cumartesi";
-            break;
-        default:
-            break;
-    } 
+
+    
+   var options = {
+    weekday : "long",
+    day: "numeric",
+    month: "long"
+   };
+
+   var day = today.toLocaleDateString("tr-TR", options);
         
         res.render("list", { gunTuru: day });
     
-
+   app.post("/", function (req,res) {
+    var item = req.body.yeniOge;
+    console.log(item);
+   });
 });
 
 
